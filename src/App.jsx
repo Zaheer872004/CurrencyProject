@@ -3,12 +3,12 @@ import useCurrencyInfo from "./Hooks/useCurrencyInfo";
 import { useState } from "react";
 
 function App() {
-  const [amount, setAmount] = useState(0); // Amount to convert
-  const [from, setFrom] = useState("usd"); // Currency to convert from
-  const [to, setTo] = useState("inr"); // Currency to convert to
-  const [convertedAmount, setConvertedAmount] = useState(0); // Converted amount
+  const [amount, setAmount] = useState(); 
+  const [from, setFrom] = useState("usd"); 
+  const [to, setTo] = useState("inr"); 
+  const [convertedAmount, setConvertedAmount] = useState();
 
-  const currencyInfo = useCurrencyInfo(from); // Fetch currency information
+  const currencyInfo = useCurrencyInfo(from); // Fetch currency information from our custom hooks
 
   const options = Object.keys(currencyInfo); // Get all currency options
 
@@ -17,15 +17,15 @@ function App() {
     setFrom((prev) => to);
     setTo((prev) => from);
     
-    // Swap amounts on currency swap
-    setAmount(convertedAmount); // Set amount to the converted amount
-    setConvertedAmount(amount); // Set converted amount to the original amount
+    // Swap amounts on currency 
+    setAmount(convertedAmount); 
+    setConvertedAmount(amount); 
   };
 
   const convert = () => {
     const rate = currencyInfo[to];
     if (rate) {
-      setConvertedAmount(amount * rate); // Convert amount based on the exchange rate
+      setConvertedAmount(amount * rate); // here calculate the converted amount
     } else {
       console.warn("Conversion rate not available");
     }
@@ -50,7 +50,7 @@ function App() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              convert(); // Call convert function on form submit
+              convert(); 
             }}
           >
             <div className="w-full mb-1">
@@ -68,7 +68,7 @@ function App() {
               <button
                 type="button"
                 className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
-                onClick={swap} // Call swap function on button click
+                onClick={swap} 
               >
                 Swap
               </button>
